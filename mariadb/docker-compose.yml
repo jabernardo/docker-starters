@@ -1,12 +1,15 @@
-version: '3.1'
+version: '3.6'
 
 services:
-
   db:
-    image: mariadb
+    image: mariadb:10.3
+    command: mysqld --bind-address=0.0.0.0 --slow-query-log --log-output=TABLE --log-queries-not-using-indexes=ON
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: usap1q2w
+     - MYSQL_ROOT_PASSWORD=test
+     - MYSQL_DATABASE=test
+     - MYSQL_USER=test
+     - MYSQL_PASSWORD=test
     volumes:
      - ./data:/var/lib/mysql
     ports:
