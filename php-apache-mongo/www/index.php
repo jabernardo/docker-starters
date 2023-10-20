@@ -11,3 +11,7 @@ $insertOneResult = $collection->insertOne([
 ]);
 
 printf("Inserted %d document(s)\n", $insertOneResult->getInsertedCount());
+
+$data = $collection->findOne(['message' => new MongoDB\BSON\Regex('world', 'i')]);
+
+printf("ID: $data->_id<br/>Message: $data->message");
