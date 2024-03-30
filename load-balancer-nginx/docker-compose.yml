@@ -1,0 +1,37 @@
+version: '3.6'
+
+services:
+  app1:
+    build: ./app/
+    container_name: app1
+    expose:
+      - 3000
+    environment:
+      - APPNAME=app1
+    ports:
+      - 3001:3000
+  app2:
+    build: ./app/
+    container_name: app2
+    expose:
+      - 3000
+    environment:
+      - APPNAME=app2
+    ports:
+      - 3002:3000
+    networks:
+      - default
+  loadbalancer:
+    build: ./nginx
+    expose:
+      - 80
+    ports:
+      - 80:80
+    depends_on:
+      - app1
+      - app2
+    networks:
+      - default
+
+networks:
+  default:
